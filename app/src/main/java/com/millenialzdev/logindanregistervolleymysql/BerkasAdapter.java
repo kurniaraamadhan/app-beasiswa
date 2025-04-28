@@ -1,5 +1,6 @@
 package com.millenialzdev.logindanregistervolleymysql;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -25,8 +25,9 @@ public class BerkasAdapter extends RecyclerView.Adapter<BerkasAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Menggunakan layout item yang sesuai dengan aplikasi kamu (bukan simple_list_item_1)
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(android.R.layout.simple_list_item_1, parent, false); // Simple layout
+                .inflate(R.layout.item_berkas, parent, false); // Ganti dengan item_berkas.xml
         return new ViewHolder(view);
     }
 
@@ -54,9 +55,10 @@ public class BerkasAdapter extends RecyclerView.Adapter<BerkasAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
+
         ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
+            textView = itemView.findViewById(R.id.textView); // Pastikan ada textView di layout item_berkas.xml
         }
     }
 }

@@ -84,11 +84,22 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="sans-serif-medium"/>
 
+                <!-- RecyclerView untuk daftar berkas -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_berkas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical" />
+
+                <!-- Tombol Tambah Berkas Baru -->
+                <Button
+                    android:id="@+id/tambahBerkasButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tambah Berkas Baru"
+                    android:backgroundTint="#00BCD4"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
@@ -102,5 +113,4 @@
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/drawer_header" />
-
 </androidx.drawerlayout.widget.DrawerLayout>

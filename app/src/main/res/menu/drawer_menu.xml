@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_dashboard"
+        android:title="@string/dashboard"
+        android:icon="@drawable/baseline_dashboard_24"/>
+    <item
+        android:id="@+id/nav_upload"
+        android:title="@string/upload_berkas"
+        android:icon="@drawable/baseline_attach_file_24"/>
+    <item
+        android:id="@+id/nav_not_verified"
+        android:title="@string/berkas_tidak_lolos"
+        android:icon="@drawable/baseline_error_24"/>
+</menu>

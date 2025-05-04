@@ -19,7 +19,7 @@ import com.android.volley.toolbox.Volley;
 public class Login extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
-    private Button btnLogin, btnRegister;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +29,6 @@ public class Login extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Register.class));
-            }
-        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

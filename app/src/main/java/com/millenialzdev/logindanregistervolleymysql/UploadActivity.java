@@ -1,21 +1,22 @@
 package com.millenialzdev.logindanregistervolleymysql;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class UploadBerkasActivity extends AppCompatActivity {
+public class UploadActivity extends AppCompatActivity {
 
     private EditText editNamaBerkas;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_berkas);
+        setContentView(R.layout.activity_upload);
 
         editNamaBerkas = findViewById(R.id.edit_nama_berkas);
         Button buttonUpload = findViewById(R.id.button_upload_berkas);

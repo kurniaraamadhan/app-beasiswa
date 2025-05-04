@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_dashboard"
-        android:title="@string/dashboard"
+        android:title="Dashboard"
         android:icon="@drawable/baseline_dashboard_24"/>
     <item
         android:id="@+id/nav_upload"
-        android:title="@string/upload_berkas"
+        android:title="Upload Berkas"
         android:icon="@drawable/baseline_attach_file_24"/>
     <item
         android:id="@+id/nav_not_verified"
-        android:title="@string/berkas_tidak_lolos"
+        android:title="Berkas Tidak Lolos Verifikasi"
         android:icon="@drawable/baseline_error_24"/>
 </menu>

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
-    android:background="#4B009688"
+    android:background="#F5F5F5"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,10 +21,20 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#00BCD4"
-                app:title="Dashboard"
-                app:titleTextColor="#282424"
-                app:popupTheme="@style/ThemeOverlay.Material3.Light" />
+                android:background="#009688"
+                app:popupTheme="@style/ThemeOverlay.Material3.Light">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Dashboard"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+            </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -43,46 +53,38 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="6dp"
-                    android:layout_marginBottom="16dp">
+                    app:cardElevation="6dp">
 
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:padding="16dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <TextView
                             android:id="@+id/statistik_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="50 Berkas Diterima"
-                            android:textSize="20sp"
-                            android:textColor="#00BCD4"
-                            android:fontFamily="sans-serif-medium" />
+                            android:layout_gravity="center"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="✅ Tidak Ada Berkas Pending"
+                            android:textColor="#009688"
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                <!-- Tombol Upload -->
-                <Button
-                    android:id="@+id/button_upload"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Upload Berkas"
-                    android:backgroundTint="#00BCD4"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginBottom="24dp"/>
 
                 <!-- List Berkas -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daftar Berkas"
-                    android:textSize="18sp"
-                    android:textColor="#2196F3"
+                    android:drawableLeft="@drawable/baseline_contact_page_24"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="sans-serif-medium"/>
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Daftar Berkas"
+                    android:textColor="#009688"
+                    android:textSize="18sp" />
 
                 <!-- RecyclerView untuk daftar berkas -->
                 <androidx.recyclerview.widget.RecyclerView
@@ -96,9 +98,10 @@
                     android:id="@+id/tambahBerkasButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tambah Berkas Baru"
-                    android:backgroundTint="#00BCD4"
+                    android:drawableRight="@drawable/baseline_add_24"
                     android:layout_marginTop="16dp"
+                    android:backgroundTint="#009688"
+                    android:text="Tambah Berkas Baru"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>

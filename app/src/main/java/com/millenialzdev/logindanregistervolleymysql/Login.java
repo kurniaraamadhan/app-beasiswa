@@ -19,7 +19,7 @@ import com.android.volley.toolbox.Volley;
 public class Login extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
-    private Button btnLogin, btnRegister;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,46 +29,50 @@ public class Login extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Register.class));
-            }
-        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
+                String username = etUsername.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
 
-                if (! (username.isEmpty() || password.isEmpty())){
+                if (!username.isEmpty() && !password.isEmpty()) {
 
-                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    String url = Db_Contract.urlLogin;
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, Db_Contract.urlLogin + "?username=" + username + "&password=" + password, new Response.Listener<String>() {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (response.contains("Selamat Datang")) {
+                                        Toast.makeText(getApplicationContext(), "Login Berhasil", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Login Gagal: " + response, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(), "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }) {
                         @Override
-                        public void onResponse(String response) {
-                            if (response.equals("Selamat Datang")){
-                                Toast.makeText(getApplicationContext(), "Login Berhasil", Toast.LENGTH_SHORT).show();
+                        protected java.util.Map<String, String> getParams() {
+                            java.util.Map<String, String> params = new java.util.HashMap<>();
+                            params.put("username", username);
+                            params.put("password", password);
+                            return params;
+                        }
+                    };
 
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Login Gagal", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    requestQueue.add(stringRequest);
-                }else{
-                    Toast.makeText(getApplicationContext(), "Password Atau Username Salah", Toast.LENGTH_SHORT).show();
+                    Volley.newRequestQueue(getApplicationContext()).add(stringRequest);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Username dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 }
             }
         });

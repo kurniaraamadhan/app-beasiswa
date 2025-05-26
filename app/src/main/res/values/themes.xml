@@ -3,6 +3,7 @@
     <style name="Base.Theme.LoginDanRegisterVolleyMySql" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">#009688</item> <!-- merah misalnya -->
     </style>
 
     <style name="Theme.LoginDanRegisterVolleyMySql" parent="Base.Theme.LoginDanRegisterVolleyMySql" />

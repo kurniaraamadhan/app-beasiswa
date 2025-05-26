@@ -12,7 +12,7 @@ public class DetailBerkasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_berkas);
+        setContentView(R.layout.activity_list_berkas);
 
         textDetailBerkas = findViewById(R.id.text_detail_berkas);
 

@@ -75,17 +75,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Tombol Upload -->
-                <Button
-                    android:id="@+id/button_upload"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:backgroundTint="#009688"
-                    android:drawableRight="@drawable/baseline_file_upload_24"
-                    android:text="Upload Berkas"
-                    android:textColor="#FFFFFF" />
-
                 <!-- List Berkas -->
                 <TextView
                     android:layout_width="wrap_content"

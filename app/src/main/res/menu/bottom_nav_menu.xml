@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/nav_pendaftaran"
+        android:icon="@drawable/ic_form"
+        android:title="Pendaftaran" />
+
+    <item
+        android:id="@+id/nav_berkas_mahasiswa"
+        android:icon="@drawable/ic_student_files"
+        android:title="Berkas Mhs" />
+
+    <item
+        android:id="@+id/nav_berkas_ditolak"
+        android:icon="@drawable/ic_rejected_files"
+        android:title="Berkas Ditolak" />
+
+    <item
+        android:id="@+id/nav_data_diri"
+        android:icon="@drawable/ic_profile"
+        android:title="Data Diri" />
+</menu>

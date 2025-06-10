@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_berkas_nim_ditolak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NIM: 2023004"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_berkas_jenis_ditolak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jenis Berkas: Surat Pernyataan Tidak Mampu"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_berkas_alasan_ditolak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alasan Ditolak: Dokumen tidak lengkap"
+            android:textColor="#D32F2F"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_lihat_detail_ditolak"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="Lihat Detail"
+            android:textColor="#009688"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:drawableTint="#009688"
+            android:paddingStart="12dp"
+            android:paddingEnd="8dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

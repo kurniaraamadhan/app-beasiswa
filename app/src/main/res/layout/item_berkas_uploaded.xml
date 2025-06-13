@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/iv_berkas_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        app:srcCompat="@drawable/ic_file_icon"
+        app:tint="#009688"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_uploaded_berkas_jenis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jenis Berkas (Nama File)"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/tv_uploaded_berkas_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status: Diverifikasi Pemprov"
+            android:textColor="#757575"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_lihat_uploaded_berkas"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lihat"
+        android:textColor="#2196F3"
+        android:drawableEnd="@drawable/ic_visibility"
+        android:drawableTint="#2196F3"
+        android:paddingStart="12dp"
+        android:paddingEnd="8dp"/>
+
+</LinearLayout>

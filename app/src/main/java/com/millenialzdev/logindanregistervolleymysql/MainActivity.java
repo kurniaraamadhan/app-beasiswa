@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
     private TextView toolbarTitle;
 
     @Override
@@ -23,13 +23,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false); // Sembunyikan title default
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         toolbarTitle = findViewById(R.id.toolbar_title);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Set listener untuk Bottom Navigation
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             Fragment selectedFragment = null;
@@ -40,27 +39,33 @@ public class MainActivity extends AppCompatActivity {
                 title = "Beranda";
             } else if (itemId == R.id.nav_pendaftaran) {
                 selectedFragment = new PendaftaranFragment();
-                title = "Pendaftaran";
+                title = "Pendaftar Beasiswa Baru";
             } else if (itemId == R.id.nav_berkas_mahasiswa) {
                 selectedFragment = new BerkasMahasiswaFragment();
-                title = "Berkas Mahasiswa";
+                title = "Unggah Berkas Mahasiswa";
             } else if (itemId == R.id.nav_berkas_ditolak) {
                 selectedFragment = new BerkasDitolakFragment();
                 title = "Berkas Ditolak";
-            } else if (itemId == R.id.nav_data_diri) {
-                selectedFragment = new DataDiriFragment();
-                title = "Data Diri Mahasiswa";
+            }
+            // HAPUS BARIS INI:
+            // else if (itemId == R.id.nav_data_diri) {
+            //     selectedFragment = new DataDiriFragment();
+            //     title = "Formulir Data Diri";
+            // }
+            // PASTIKAN BARIS INI ADA (sudah ada di jawaban sebelumnya, hanya memastikan)
+            else if (itemId == R.id.nav_riwayat_upload) {
+                selectedFragment = new RiwayatUploadFragment();
+                title = "Riwayat Unggahan Berkas";
             }
 
             if (selectedFragment != null) {
                 replaceFragment(selectedFragment);
-                toolbarTitle.setText(title); // Update judul toolbar
+                toolbarTitle.setText(title);
                 return true;
             }
             return false;
         });
 
-        // Set Fragment default saat aplikasi pertama kali dibuka
         if (savedInstanceState == null) {
             bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
@@ -71,5 +76,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void setToolbarTitle(String title) {
+        if (toolbarTitle != null) {
+            toolbarTitle.setText(title);
+        }
     }
 }

@@ -27,17 +27,17 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:gravity="center_vertical"
-                android:background="#E0F2F1"> <TextView
-                android:id="@+id/welcome_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Halo, Staff TU!"
-                android:textColor="#004D40"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginBottom="4dp"/>
-
+                android:background="#E0F2F1">
+                <TextView
+                    android:id="@+id/welcome_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Halo, Staff TU!"
+                    android:textColor="#004D40"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="4dp"/>
                 <TextView
                     android:id="@+id/current_date_text"
                     android:layout_width="wrap_content"
@@ -209,8 +209,8 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_add_user"
-                        android:layout_marginBottom="8dp"
-                        app:tint="#009688" />
+                        android:tint="#009688"
+                        android:layout_marginBottom="8dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -238,12 +238,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_manage_files"
-                        android:layout_marginBottom="8dp"
-                        app:tint="#009688" />
+                        android:tint="#009688"
+                        android:layout_marginBottom="8dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kelola Berkas"
+                        android:text="Unggah Berkas"
                         android:textColor="#333333"
                         android:textSize="16sp"
                         android:gravity="center"/>
@@ -266,13 +266,13 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_list_students"
-                        android:layout_marginBottom="8dp"
-                        app:tint="#009688" />
+                        android:src="@drawable/ic_add_user"
+                        android:tint="#009688"
+                        android:layout_marginBottom="8dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Daftar Mahasiswa"
+                        android:text="Input Data Mhs."
                         android:textColor="#333333"
                         android:textSize="16sp"
                         android:gravity="center"/>
@@ -296,8 +296,8 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_settings"
-                        android:layout_marginBottom="8dp"
-                        app:tint="#009688" />
+                        android:tint="#009688"
+                        android:layout_marginBottom="8dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -314,6 +314,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp">
 
@@ -332,13 +333,24 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"/>
 
-                <TextView
-                    android:id="@+id/tv_announcement"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_notifikasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_notifikasi"/>
+
+                <TextView
+                    android:id="@+id/tv_empty_notifikasi_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Tidak ada pemberitahuan baru saat ini."
-                    android:textColor="#555555"
-                    android:textSize="15sp"/>
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:textColor="#757575"
+                    android:textSize="14sp"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

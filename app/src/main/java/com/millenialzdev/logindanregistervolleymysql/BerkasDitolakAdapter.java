@@ -5,26 +5,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+// import android.widget.Toast; // Hapus atau komentari ini jika tidak lagi diperlukan
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
 public class BerkasDitolakAdapter extends RecyclerView.Adapter<BerkasDitolakAdapter.BerkasDitolakViewHolder> {
 
     private List<Berkas> berkasList;
+    private OnItemClickListener listener; // Interface listener baru
 
-    public BerkasDitolakAdapter(List<Berkas> berkasList) {
+    // Definisi interface
+    public interface OnItemClickListener {
+        void onDetailClick(Berkas berkas); // Mengirim objek Berkas
+    }
+
+    // Constructor dengan listener
+    public BerkasDitolakAdapter(List<Berkas> berkasList, OnItemClickListener listener) {
         this.berkasList = berkasList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public BerkasDitolakViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Meng-inflate item_berkas_ditolak.xml sebagai layout untuk setiap item
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_berkas_ditolak, parent, false);
         return new BerkasDitolakViewHolder(view);
     }
@@ -32,20 +38,24 @@ public class BerkasDitolakAdapter extends RecyclerView.Adapter<BerkasDitolakAdap
     @Override
     public void onBindViewHolder(@NonNull BerkasDitolakViewHolder holder, int position) {
         Berkas berkas = berkasList.get(position);
+        holder.tvNIM.setText("NIM: " + berkas.getNim());
+        holder.tvJenisBerkas.setText("Jenis Berkas: " + berkas.getJenisBerkas());
+        // Tampilkan alasan penolakan
+        if (berkas.getAlasanDitolak() != null && !berkas.getAlasanDitolak().isEmpty()) {
+            holder.tvAlasanDitolak.setText("Alasan Ditolak: " + berkas.getAlasanDitolak());
+            holder.tvAlasanDitolak.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvAlasanDitolak.setVisibility(View.GONE);
+        }
 
-        holder.tvNimDitolak.setText("NIM: " + berkas.getNim());
-        holder.tvJenisDitolak.setText("Jenis Berkas: " + berkas.getJenisBerkas());
-        holder.tvAlasanDitolak.setText("Alasan Ditolak: " + berkas.getAlasanDitolak());
-
+        // Ubah Listener di sini
         holder.btnLihatDetail.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Lihat Detail Berkas NIM: " + berkas.getNim(), Toast.LENGTH_SHORT).show();
-            // TODO: Implementasi logika untuk membuka detail berkas
+            if (listener != null) {
+                listener.onDetailClick(berkas); // Panggil metode interface
+            }
+            // HAPUS BARIS TOAST APA PUN DI SINI JIKA ADA!
+            // Contoh: Toast.makeText(v.getContext(), "Lihat Detail Berkas Ditolak dari NIM " + berkas.getNim(), Toast.LENGTH_SHORT).show();
         });
-    }
-
-    public void updateList(List<Berkas> newList) {
-        berkasList = newList;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -54,16 +64,20 @@ public class BerkasDitolakAdapter extends RecyclerView.Adapter<BerkasDitolakAdap
     }
 
     public static class BerkasDitolakViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNimDitolak, tvJenisDitolak, tvAlasanDitolak;
+        TextView tvNIM, tvJenisBerkas, tvAlasanDitolak;
         Button btnLihatDetail;
 
         public BerkasDitolakViewHolder(@NonNull View itemView) {
             super(itemView);
-            // ID-ID ini berasal dari item_berkas_ditolak.xml
-            tvNimDitolak = itemView.findViewById(R.id.tv_berkas_nim_ditolak);
-            tvJenisDitolak = itemView.findViewById(R.id.tv_berkas_jenis_ditolak);
+            tvNIM = itemView.findViewById(R.id.tv_berkas_nim_ditolak);
+            tvJenisBerkas = itemView.findViewById(R.id.tv_berkas_jenis_ditolak);
             tvAlasanDitolak = itemView.findViewById(R.id.tv_berkas_alasan_ditolak);
             btnLihatDetail = itemView.findViewById(R.id.btn_lihat_detail_ditolak);
         }
+    }
+
+    public void updateList(List<Berkas> newList) {
+        this.berkasList = newList;
+        notifyDataSetChanged();
     }
 }

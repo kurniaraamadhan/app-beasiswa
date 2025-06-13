@@ -44,7 +44,9 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
     implementation ("de.hdodenhof:circleimageview:3.0.0")
     implementation ("androidx.fragment:fragment-ktx:1.8.0")
-
-
+    implementation ("androidx.core:core:1.13.1")
+    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor  ("com.github.bumptech.glide:compiler:4.16.0")
     implementation("com.android.volley:volley:1.2.1")
 }

@@ -1,5 +1,6 @@
 package com.millenialzdev.logindanregistervolleymysql;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,7 +16,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context; // Import ini
@@ -34,25 +38,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdapter.OnItemClickListener {
+public class RiwayatUploadFragment extends Fragment implements RiwayatUploadAdapter.OnItemClickListener {
 
-    private static final String API_URL_BERKAS_DITOLAK = "http://192.168.100.4/my_api_android/upload_berkas.php";
+    private static final String API_URL_BERKAS_RIWAYAT = "http://192.168.100.4/my_api_android/upload_berkas.php";
     private static final String API_URL_MAHASISWA_SEARCH = "http://192.168.100.4/my_api_android/mahasiswa_crud.php";
 
-    private RecyclerView rvBerkasDitolak;
-    private BerkasDitolakAdapter berkasDitolakAdapter;
-    private List<Berkas> berkasList;
-    private List<Berkas> filteredBerkasList;
-    private TextView tvEmptyState;
-    private EditText etSearchBerkasDitolak;
+    private RecyclerView rvRiwayatUpload;
+    private RiwayatUploadAdapter riwayatUploadAdapter;
+    private List<Berkas> riwayatBerkasList;
+    private List<Berkas> filteredRiwayatBerkasList;
 
-    private List<Pendaftar> dummyPendaftarList; // Dipertahankan untuk onDetailClick
+    private TextView tvEmptyState;
+    private EditText etSearchRiwayat;
+    private Spinner spinnerFilterStatus;
+
+    private List<Pendaftar> dummyPendaftarList; // Dipertahankan untuk onLihatDetailPendaftarClick
     private RequestQueue requestQueue;
     private String loggedInKampus; // <--- BARU: Untuk menyimpan kampus Staff TU
     private String loggedInRole; // <--- BARU: Untuk menyimpan role Staff TU (developer bisa lihat semua)
 
 
-    public BerkasDitolakFragment() {
+    public RiwayatUploadFragment() {
         // Required empty public constructor
     }
 
@@ -71,20 +77,23 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_berkas_ditolak, container, false);
+        View view = inflater.inflate(R.layout.fragment_riwayat_upload, container, false);
 
-        rvBerkasDitolak = view.findViewById(R.id.rv_berkas_ditolak);
-        tvEmptyState = view.findViewById(R.id.tv_empty_state_berkas_ditolak);
-        etSearchBerkasDitolak = view.findViewById(R.id.et_search_berkas_ditolak);
+        rvRiwayatUpload = view.findViewById(R.id.rv_riwayat_upload);
+        tvEmptyState = view.findViewById(R.id.tv_empty_state_riwayat);
+        etSearchRiwayat = view.findViewById(R.id.et_search_riwayat);
+        spinnerFilterStatus = view.findViewById(R.id.spinner_filter_status);
 
-        berkasList = new ArrayList<>();
-        filteredBerkasList = new ArrayList<>();
+        riwayatBerkasList = new ArrayList<>();
+        filteredRiwayatBerkasList = new ArrayList<>();
 
-        berkasDitolakAdapter = new BerkasDitolakAdapter(filteredBerkasList, this);
-        rvBerkasDitolak.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvBerkasDitolak.setAdapter(berkasDitolakAdapter);
+        riwayatUploadAdapter = new RiwayatUploadAdapter(filteredRiwayatBerkasList, this);
+        rvRiwayatUpload.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRiwayatUpload.setAdapter(riwayatUploadAdapter);
 
-        etSearchBerkasDitolak.addTextChangedListener(new TextWatcher() {
+        setupFilterStatusSpinner();
+
+        etSearchRiwayat.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -97,7 +106,7 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
             public void afterTextChanged(Editable s) {}
         });
 
-        // Dummy pendaftar list (tetap di sini untuk onDetailClick)
+        // Dummy pendaftar list (tetap di sini untuk onLihatDetailPendaftarClick)
         // ... (data dummy pendaftar sama seperti sebelumnya, pastikan 12 parameter) ...
         dummyPendaftarList = new ArrayList<>();
         dummyPendaftarList.add(new Pendaftar(
@@ -149,23 +158,50 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
     @Override
     public void onResume() {
         super.onResume();
-        fetchBerkasDitolakData();
+        fetchRiwayatBerkas();
     }
 
-    private void fetchBerkasDitolakData() {
+
+    private void setupFilterStatusSpinner() {
+        List<String> statusOptions = new ArrayList<>();
+        statusOptions.add("Semua Status");
+        statusOptions.add("Menunggu Verifikasi Pemprov");
+        statusOptions.add("Diverifikasi Pemprov");
+        statusOptions.add("Ditolak Pemprov");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_item, statusOptions);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFilterStatus.setAdapter(adapter);
+
+        spinnerFilterStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                applyFilters();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+    }
+
+    private void fetchRiwayatBerkas() {
         if (loggedInKampus.isEmpty() && !loggedInRole.equals("developer")) { // <--- BARU: Validasi kampus
             Toast.makeText(getContext(), "Informasi kampus tidak ditemukan. Mohon login ulang.", Toast.LENGTH_LONG).show();
             updateEmptyState(true);
             return;
         }
+
         if (requestQueue == null || getContext() == null) {
             if (getContext() != null) Toast.makeText(getContext(), "RequestQueue belum diinisialisasi.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Kirim parameter kampus dan role
-        String url = API_URL_BERKAS_DITOLAK + "?status=" + Uri.encode("Ditolak Pemprov") +
-                "&kampus=" + Uri.encode(loggedInKampus) +
+        String url = API_URL_BERKAS_RIWAYAT + "?kampus=" + Uri.encode(loggedInKampus) +
                 "&role=" + Uri.encode(loggedInRole);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -177,7 +213,7 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
 
                         if (success) {
                             JSONArray berkasArray = jsonResponse.getJSONArray("berkas");
-                            berkasList.clear();
+                            riwayatBerkasList.clear();
                             for (int i = 0; i < berkasArray.length(); i++) {
                                 JSONObject berkasObject = berkasArray.getJSONObject(i);
                                 String nim = berkasObject.getString("nim_mahasiswa");
@@ -189,57 +225,64 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
                                 String namaMahasiswa = berkasObject.getString("nama_mahasiswa");
 
                                 Berkas berkas = new Berkas(nim, jenis, status, alasanDitolak, tanggalUpload, urlBerkas, namaMahasiswa);
-                                berkasList.add(berkas);
+                                riwayatBerkasList.add(berkas);
                             }
                             applyFilters();
                         } else {
                             String message = jsonResponse.getString("message");
-                            Toast.makeText(getContext(), "Gagal memuat berkas ditolak: " + message, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Gagal memuat riwayat berkas: " + message, Toast.LENGTH_LONG).show();
                             updateEmptyState(true);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getContext(), "Error parsing JSON berkas ditolak: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Error parsing JSON riwayat berkas: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         updateEmptyState(true);
                     }
                 },
                 error -> {
                     if (getContext() == null) return;
-                    Toast.makeText(getContext(), "Error jaringan saat memuat berkas ditolak: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error jaringan saat memuat riwayat berkas: " + error.getMessage(), Toast.LENGTH_LONG).show();
                     updateEmptyState(true);
                 });
-        if (requestQueue != null) {
-            requestQueue.add(stringRequest);
-        } else {
-            if (getContext() != null) {
-                Toast.makeText(getContext(), "RequestQueue belum diinisialisasi.", Toast.LENGTH_SHORT).show();
-            }
-        }
+        requestQueue.add(stringRequest);
     }
 
 
     private void applyFilters() {
-        String searchText = etSearchBerkasDitolak.getText().toString().toLowerCase(Locale.getDefault());
+        String searchText = etSearchRiwayat.getText().toString().toLowerCase(Locale.getDefault());
+        String selectedStatus = spinnerFilterStatus.getSelectedItem().toString();
 
-        filteredBerkasList.clear();
-        for (Berkas item : berkasList) {
-            boolean matchesSearch = item.getNim().toLowerCase(Locale.getDefault()).contains(searchText) ||
-                    item.getJenisBerkas().toLowerCase(Locale.getDefault()).contains(searchText) ||
-                    (item.getAlasanDitolak() != null && item.getAlasanDitolak().toLowerCase(Locale.getDefault()).contains(searchText));
+        filteredRiwayatBerkasList.clear();
 
-            if (matchesSearch) {
-                filteredBerkasList.add(item);
+        for (Berkas berkas : riwayatBerkasList) {
+            boolean matchesSearch = berkas.getNim().toLowerCase(Locale.getDefault()).contains(searchText) ||
+                    berkas.getJenisBerkas().toLowerCase(Locale.getDefault()).contains(searchText) ||
+                    berkas.getNamaMahasiswa().toLowerCase(Locale.getDefault()).contains(searchText);
+
+            boolean matchesStatus = selectedStatus.equals("Semua Status") ||
+                    berkas.getStatus().equals(selectedStatus);
+
+            if (matchesSearch && matchesStatus) {
+                filteredRiwayatBerkasList.add(berkas);
             }
         }
-        berkasDitolakAdapter.updateList(filteredBerkasList);
-        updateEmptyState(filteredBerkasList.isEmpty());
+        riwayatUploadAdapter.updateList(filteredRiwayatBerkasList);
+        updateEmptyState(filteredRiwayatBerkasList.isEmpty());
     }
 
+    @Override
+    public void onLihatBerkasClick(Berkas berkas) {
+        if (getContext() == null) return;
+        if (berkas.getUrlBerkas() != null && !berkas.getUrlBerkas().isEmpty()) {
+            openWebLink(berkas.getUrlBerkas());
+        } else {
+            Toast.makeText(getContext(), "URL berkas tidak tersedia.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
-    public void onDetailClick(Berkas berkas) {
+    public void onLihatDetailPendaftarClick(Berkas berkas) {
         if (getContext() == null) return;
-
         Pendaftar targetPendaftar = null;
         for (Pendaftar p : dummyPendaftarList) { // Perlu mengambil pendaftar lengkap dari DB jika dummy dihapus
             if (p.getNim().equals(berkas.getNim())) {
@@ -249,7 +292,7 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
         }
 
         if (targetPendaftar != null) {
-            BerkasDitolakDetailFragment detailFragment = BerkasDitolakDetailFragment.newInstance(berkas);
+            PendaftarDetailFragment detailFragment = PendaftarDetailFragment.newInstance(targetPendaftar);
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, detailFragment);
@@ -257,20 +300,31 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
             fragmentTransaction.commit();
 
             if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).setToolbarTitle("Detail Berkas Ditolak");
+                ((MainActivity) getActivity()).setToolbarTitle("Detail Pendaftar");
             }
         } else {
             Toast.makeText(getContext(), "Detail pendaftar tidak ditemukan.", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void openWebLink(String url) {
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(browserIntent);
+        } catch (Exception e) {
+            if (getContext() == null) return;
+            Toast.makeText(getContext(), "Tidak dapat membuka berkas. URL tidak valid atau tidak ada aplikasi penampil.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
     private void updateEmptyState(boolean isEmpty) {
         if (isEmpty) {
             tvEmptyState.setVisibility(View.VISIBLE);
-            rvBerkasDitolak.setVisibility(View.GONE);
+            rvRiwayatUpload.setVisibility(View.GONE);
         } else {
             tvEmptyState.setVisibility(View.GONE);
-            rvBerkasDitolak.setVisibility(View.VISIBLE);
+            rvRiwayatUpload.setVisibility(View.VISIBLE);
         }
     }
 }

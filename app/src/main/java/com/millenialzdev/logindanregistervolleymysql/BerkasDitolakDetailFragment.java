@@ -1,4 +1,4 @@
-package com.millenialzdev.logindanregistervolleymysql; // PASTIKAN NAMA PACKAGE SESUAI
+package com.millenialzdev.logindanregistervolleymysql;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -36,7 +36,6 @@ public class BerkasDitolakDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // Metode factory untuk membuat instance Fragment dengan data
     public static BerkasDitolakDetailFragment newInstance(Berkas berkas) {
         BerkasDitolakDetailFragment fragment = new BerkasDitolakDetailFragment();
         Bundle args = new Bundle();

@@ -34,7 +34,7 @@ import android.net.Uri;
 public class HomeFragment extends Fragment implements NotifikasiAdapter.OnItemClickListener {
 
     private static final String API_URL_DASHBOARD_STATS = "http://192.168.100.4/my_api_android/dashboard_stats.php";
-    private static final String API_URL_BERKAS = "http://192.168.100.4/my_api_android/upload_berkas.php"; // Untuk mengambil berkas ditolak
+    private static final String API_URL_BERKAS = "http://192.168.100.4/my_api_android/upload_berkas.php";
 
     private TextView welcomeText;
     private TextView currentDateText;
@@ -49,7 +49,6 @@ public class HomeFragment extends Fragment implements NotifikasiAdapter.OnItemCl
     private RequestQueue requestQueue;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -80,12 +79,10 @@ public class HomeFragment extends Fragment implements NotifikasiAdapter.OnItemCl
         rvNotifikasi = view.findViewById(R.id.rv_notifikasi);
         tvEmptyNotifikasiState = view.findViewById(R.id.tv_empty_notifikasi_state);
 
-        notifikasiList = new ArrayList<>(); // Inisialisasi kosong
+        notifikasiList = new ArrayList<>();
         notifikasiAdapter = new NotifikasiAdapter(notifikasiList, this);
         rvNotifikasi.setLayoutManager(new LinearLayoutManager(getContext()));
         rvNotifikasi.setAdapter(notifikasiAdapter);
-        // updateEmptyNotifikasiState() akan dipanggil setelah data diambil
-
         return view;
     }
 
@@ -93,15 +90,13 @@ public class HomeFragment extends Fragment implements NotifikasiAdapter.OnItemCl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", new Locale("id", "ID")); // Koreksi format tanggal
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", new Locale("id", "ID"));
         String currentDate = sdf.format(new Date());
         currentDateText.setText(currentDate);
 
-        // Panggil metode untuk mengambil statistik dari API
         fetchDashboardStats();
-        // Panggil metode untuk mengambil notifikasi dari berkas ditolak
-        fetchRejectedFilesForNotifications();
 
+        fetchRejectedFilesForNotifications();
 
         cardPendaftarBaru.setOnClickListener(v -> {
             if (getContext() == null) return;
@@ -138,12 +133,12 @@ public class HomeFragment extends Fragment implements NotifikasiAdapter.OnItemCl
             Toast.makeText(getContext(), "Membuka Pengaturan Akun...", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new PengaturanAkunFragment()); // Buka PengaturanAkunFragment
+            fragmentTransaction.replace(R.id.fragment_container, new PengaturanAkunFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
             if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).setToolbarTitle("Pengaturan Akun"); // Update judul toolbar
+                ((MainActivity) getActivity()).setToolbarTitle("Pengaturan Akun");
             }
         });
     }

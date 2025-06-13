@@ -42,7 +42,6 @@ public class NotifikasiAdapter extends RecyclerView.Adapter<NotifikasiAdapter.No
         holder.tvDeskripsi.setText(notifikasi.getDeskripsi());
         holder.ivIcon.setImageResource(notifikasi.getIkon());
 
-        // Atur warna berdasarkan prioritas (misal: "red", "orange", "green")
         int tintColor = Color.parseColor("#009688"); // Default teal
         switch (notifikasi.getWarnaPrioritas().toLowerCase()) {
             case "red":
@@ -62,7 +61,7 @@ public class NotifikasiAdapter extends RecyclerView.Adapter<NotifikasiAdapter.No
                 break;
         }
         holder.ivIcon.setColorFilter(tintColor);
-        holder.tvJudul.setTextColor(tintColor); // Judul juga bisa pakai warna prioritas
+        holder.tvJudul.setTextColor(tintColor);
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {

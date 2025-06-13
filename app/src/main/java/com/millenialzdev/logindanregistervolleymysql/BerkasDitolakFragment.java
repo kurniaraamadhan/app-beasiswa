@@ -46,10 +46,10 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
     private TextView tvEmptyState;
     private EditText etSearchBerkasDitolak;
 
-    private List<Pendaftar> dummyPendaftarList; // Dipertahankan untuk onDetailClick
+    private List<Pendaftar> dummyPendaftarList;
     private RequestQueue requestQueue;
-    private String loggedInKampus; // <--- BARU: Untuk menyimpan kampus Staff TU
-    private String loggedInRole; // <--- BARU: Untuk menyimpan role Staff TU (developer bisa lihat semua)
+    private String loggedInKampus;
+    private String loggedInRole;
 
 
     public BerkasDitolakFragment() {
@@ -61,10 +61,10 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
         super.onCreate(savedInstanceState);
         if (getContext() != null) {
             requestQueue = Volley.newRequestQueue(getContext());
-            // Ambil kampus dan role Staff TU yang login dari SharedPreferences
+
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-            loggedInKampus = sharedPreferences.getString("kampus", ""); // <--- BARU: Ambil kampus
-            loggedInRole = sharedPreferences.getString("role", "android"); // <--- BARU: Ambil role
+            loggedInKampus = sharedPreferences.getString("kampus", "");
+            loggedInRole = sharedPreferences.getString("role", "android");
         }
     }
 
@@ -98,7 +98,6 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
         });
 
         // Dummy pendaftar list (tetap di sini untuk onDetailClick)
-        // ... (data dummy pendaftar sama seperti sebelumnya, pastikan 12 parameter) ...
         dummyPendaftarList = new ArrayList<>();
         dummyPendaftarList.add(new Pendaftar(
                 "Andi Wijaya", "2023001", "Menunggu Verifikasi Pemprov",
@@ -241,7 +240,7 @@ public class BerkasDitolakFragment extends Fragment implements BerkasDitolakAdap
         if (getContext() == null) return;
 
         Pendaftar targetPendaftar = null;
-        for (Pendaftar p : dummyPendaftarList) { // Perlu mengambil pendaftar lengkap dari DB jika dummy dihapus
+        for (Pendaftar p : dummyPendaftarList) {
             if (p.getNim().equals(berkas.getNim())) {
                 targetPendaftar = p;
                 break;

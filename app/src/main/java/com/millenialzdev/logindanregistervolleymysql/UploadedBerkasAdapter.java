@@ -59,7 +59,7 @@ public class UploadedBerkasAdapter extends RecyclerView.Adapter<UploadedBerkasAd
                 break;
         }
         holder.tvStatus.setTextColor(statusColor);
-        holder.ivBerkasIcon.setColorFilter(statusColor); // Ikon juga bisa diberi warna status
+        holder.ivBerkasIcon.setColorFilter(statusColor);
 
 
         holder.btnLihatBerkas.setOnClickListener(v -> {

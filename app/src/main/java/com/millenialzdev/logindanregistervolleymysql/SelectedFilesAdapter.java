@@ -1,4 +1,4 @@
-package com.millenialzdev.logindanregistervolleymysql; // Ganti dengan package-mu
+package com.millenialzdev.logindanregistervolleymysql;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ import java.util.List;
 public class SelectedFilesAdapter extends RecyclerView.Adapter<SelectedFilesAdapter.SelectedFileViewHolder> {
 
     private List<SelectedFile> selectedFilesList;
-    private OnItemRemoveListener removeListener; // Listener untuk menghapus item
+    private OnItemRemoveListener removeListener;
 
     public interface OnItemRemoveListener {
         void onRemoveClick(int position);

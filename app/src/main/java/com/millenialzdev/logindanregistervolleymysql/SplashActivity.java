@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SplashActivity.this, Login.class);
                 startActivity(intent);
-                finish(); // Tutup SplashActivity
+                finish();
             }
         }, SPLASH_SCREEN_DURATION);
     }

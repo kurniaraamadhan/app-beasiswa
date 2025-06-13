@@ -104,7 +104,7 @@ public class PengaturanAkunFragment extends Fragment {
         ivProfilePhoto = view.findViewById(R.id.iv_profile_photo);
         tvUsername = view.findViewById(R.id.tv_username);
         tvRole = view.findViewById(R.id.tv_role);
-        tvKampus = view.findViewById(R.id.tv_kampus); // Inisialisasi tvKampus
+        tvKampus = view.findViewById(R.id.tv_kampus);
 
         btnGantiFotoProfil = view.findViewById(R.id.btn_ganti_foto_profil);
         btnUbahPassword = view.findViewById(R.id.btn_ubah_password);
@@ -126,9 +126,8 @@ public class PengaturanAkunFragment extends Fragment {
 
         tvUsername.setText(loggedInUsername);
         tvRole.setText("Role: " + loggedInRole);
-        tvKampus.setText("Kampus: " + loggedInKampus); // Set teks untuk kampus
+        tvKampus.setText("Kampus: " + loggedInKampus);
 
-        // Ambil URL foto profil dari SharedPreferences dan tampilkan
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         String profilePhotoUrl = sharedPreferences.getString("profile_photo_url", "");
         if (!profilePhotoUrl.isEmpty() && !profilePhotoUrl.equals("null")) {
@@ -137,15 +136,12 @@ public class PengaturanAkunFragment extends Fragment {
             ivProfilePhoto.setImageResource(R.drawable.ic_default_profile);
         }
 
-        btnGantiFotoProfil.setOnClickListener(v -> chooseProfilePhoto()); // Klik tombol ganti foto profil
-        ivProfilePhoto.setOnClickListener(v -> chooseProfilePhoto()); // Klik foto juga bisa pilih foto
+        btnGantiFotoProfil.setOnClickListener(v -> chooseProfilePhoto());
+        ivProfilePhoto.setOnClickListener(v -> chooseProfilePhoto());
         btnUbahPassword.setOnClickListener(v -> ubahPassword());
         btnLogout.setOnClickListener(v -> logout());
     }
 
-    // --- Metode untuk Fungsionalitas ---
-
-    // Metode untuk memilih foto profil
     private void chooseProfilePhoto() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*"); // Hanya izinkan gambar
@@ -199,11 +195,9 @@ public class PengaturanAkunFragment extends Fragment {
         return result;
     }
 
-
-    // Metode untuk mengunggah foto profil
     private void unggahFotoProfil() {
         if (selectedProfilePhotoUri == null) {
-            // Ini tidak akan terjadi jika chooseProfilePhoto dipanggil duluan
+
             if (getContext() != null) Toast.makeText(getContext(), "Pilih foto profil terlebih dahulu.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -215,8 +209,8 @@ public class PengaturanAkunFragment extends Fragment {
         }
 
         Map<String, String> stringParts = new HashMap<>();
-        stringParts.put("id_user", loggedInIdUser); // Kirim id_user untuk identifikasi di PHP
-        stringParts.put("username", loggedInUsername); // Juga kirim username
+        stringParts.put("id_user", loggedInIdUser);
+        stringParts.put("username", loggedInUsername);
 
         MultipartRequest multipartRequest = new MultipartRequest(API_URL_UPDATE_PROFILE,
                 response -> {
@@ -239,10 +233,10 @@ public class PengaturanAkunFragment extends Fragment {
                                 ivProfilePhoto.setImageResource(R.drawable.ic_default_profile);
                                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.remove("profile_photo_url"); // Hapus dari shared prefs
+                                editor.remove("profile_photo_url");
                                 editor.apply();
                             }
-                            selectedProfilePhotoUri = null; // Reset setelah unggah berhasil
+                            selectedProfilePhotoUri = null;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -254,7 +248,7 @@ public class PengaturanAkunFragment extends Fragment {
                     Toast.makeText(getContext(), "Error unggah foto: " + error.getMessage(), Toast.LENGTH_LONG).show();
                 },
                 fileToUpload,
-                "file_profile_photo", // Nama field untuk file di PHP
+                "file_profile_photo",
                 stringParts);
 
         if (requestQueue != null) {
@@ -263,7 +257,6 @@ public class PengaturanAkunFragment extends Fragment {
             if (getContext() != null) Toast.makeText(getContext(), "RequestQueue belum diinisialisasi.", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     // Metode untuk mengubah password
     private void ubahPassword() {
@@ -323,8 +316,8 @@ public class PengaturanAkunFragment extends Fragment {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("id_user", loggedInIdUser); // Kirim id_user untuk identifikasi
-                    params.put("username", loggedInUsername); // Kirim username juga
+                    params.put("id_user", loggedInIdUser);
+                    params.put("username", loggedInUsername);
                     params.put("password_lama", passwordLama);
                     params.put("password_baru", passwordBaru);
                     return params;
@@ -341,16 +334,16 @@ public class PengaturanAkunFragment extends Fragment {
         if (getContext() == null) return;
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Hapus semua data di SharedPreferences
+        editor.clear();
         editor.apply();
 
         Toast.makeText(getContext(), "Anda telah logout.", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(getActivity(), Login.class); // Ganti Login.class
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Hapus semua activity sebelumnya dari stack
+        Intent intent = new Intent(getActivity(), Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         if (getActivity() != null) {
-            getActivity().finish(); // Tutup MainActivity
+            getActivity().finish();
         }
     }
 }

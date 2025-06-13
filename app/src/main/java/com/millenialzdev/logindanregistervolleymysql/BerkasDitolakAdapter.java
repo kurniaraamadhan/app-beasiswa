@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-// import android.widget.Toast; // Hapus atau komentari ini jika tidak lagi diperlukan
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,14 +14,12 @@ import java.util.List;
 public class BerkasDitolakAdapter extends RecyclerView.Adapter<BerkasDitolakAdapter.BerkasDitolakViewHolder> {
 
     private List<Berkas> berkasList;
-    private OnItemClickListener listener; // Interface listener baru
+    private OnItemClickListener listener;
 
-    // Definisi interface
     public interface OnItemClickListener {
-        void onDetailClick(Berkas berkas); // Mengirim objek Berkas
+        void onDetailClick(Berkas berkas);
     }
 
-    // Constructor dengan listener
     public BerkasDitolakAdapter(List<Berkas> berkasList, OnItemClickListener listener) {
         this.berkasList = berkasList;
         this.listener = listener;
@@ -51,10 +48,8 @@ public class BerkasDitolakAdapter extends RecyclerView.Adapter<BerkasDitolakAdap
         // Ubah Listener di sini
         holder.btnLihatDetail.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onDetailClick(berkas); // Panggil metode interface
+                listener.onDetailClick(berkas);
             }
-            // HAPUS BARIS TOAST APA PUN DI SINI JIKA ADA!
-            // Contoh: Toast.makeText(v.getContext(), "Lihat Detail Berkas Ditolak dari NIM " + berkas.getNim(), Toast.LENGTH_SHORT).show();
         });
     }
 

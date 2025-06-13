@@ -32,7 +32,7 @@ import java.util.List;
 public class PendaftarDetailFragment extends Fragment implements UploadedBerkasAdapter.OnItemClickListener {
 
     private static final String ARG_PENDAFTAR = "pendaftar_object";
-    private static final String API_URL_BERKAS_BY_NIM = "http://192.168.100.4/my_api_android/upload_berkas.php"; // Ganti dengan URL PHP kamu
+    private static final String API_URL_BERKAS_BY_NIM = "http://192.168.100.4/my_api_android/upload_berkas.php";
 
     private Pendaftar pendaftar;
 
@@ -50,7 +50,7 @@ public class PendaftarDetailFragment extends Fragment implements UploadedBerkasA
     private RequestQueue requestQueue;
 
     public PendaftarDetailFragment() {
-        // Required empty public constructor
+
     }
 
     public static PendaftarDetailFragment newInstance(Pendaftar pendaftar) {

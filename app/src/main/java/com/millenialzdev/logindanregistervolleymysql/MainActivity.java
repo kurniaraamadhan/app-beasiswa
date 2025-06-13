@@ -47,12 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new BerkasDitolakFragment();
                 title = "Berkas Ditolak";
             }
-            // HAPUS BARIS INI:
-            // else if (itemId == R.id.nav_data_diri) {
-            //     selectedFragment = new DataDiriFragment();
-            //     title = "Formulir Data Diri";
-            // }
-            // PASTIKAN BARIS INI ADA (sudah ada di jawaban sebelumnya, hanya memastikan)
+
             else if (itemId == R.id.nav_riwayat_upload) {
                 selectedFragment = new RiwayatUploadFragment();
                 title = "Riwayat Unggahan Berkas";

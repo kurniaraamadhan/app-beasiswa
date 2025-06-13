@@ -7,7 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 
-import android.webkit.MimeTypeMap; // Import ini
+import android.webkit.MimeTypeMap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,27 +28,18 @@ public class MultipartRequest extends Request<String> {
     private static final String LINE_FEED = "\r\n";
 
     private File mFilePart;
-    private String mFilePartName; // Tambahkan ini: nama parameter untuk file di form data
+    private String mFilePartName;
     private Map<String, String> mStringParts;
 
-    /**
-     * Konstruktor untuk upload file.
-     * @param url URL to fetch the string contents from
-     * @param listener Listener to receive the String response
-     * @param errorListener Error listener, or null to ignore errors
-     * @param filePart The file to upload
-     * @param filePartName The name of the file part in the form data (e.g., "file_berkas", "profile_photo")
-     * @param stringParts Additional String parameters to send
-     */
     public MultipartRequest(String url, Response.Listener<String> listener,
                             Response.ErrorListener errorListener, File filePart,
-                            String filePartName, // <-- BARU
+                            String filePartName,
                             Map<String, String> stringParts) {
         super(Method.POST, url, errorListener);
         this.mListener = listener;
         this.mErrorListener = errorListener;
         this.mFilePart = filePart;
-        this.mFilePartName = filePartName; // <-- Inisialisasi BARU
+        this.mFilePartName = filePartName;
         this.mStringParts = stringParts;
         this.mHeaders = Collections.emptyMap();
     }
@@ -67,18 +58,16 @@ public class MultipartRequest extends Request<String> {
     public byte[] getBody() throws AuthFailureError {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
-            // Add string parts
+
             for (Map.Entry<String, String> entry : mStringParts.entrySet()) {
                 buildStringPart(bos, entry.getKey(), entry.getValue());
             }
 
-            // Add file part
             if (mFilePart != null) {
                 // Gunakan mFilePartName di sini
                 buildFilePart(bos, mFilePart, mFilePartName);
             }
 
-            // Add closing boundary
             bos.write(("--" + BOUNDARY + "--" + LINE_FEED).getBytes());
 
         } catch (IOException e) {

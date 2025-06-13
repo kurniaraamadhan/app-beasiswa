@@ -22,8 +22,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context; // Import ini
-import android.content.SharedPreferences; // Import ini
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,10 +52,10 @@ public class RiwayatUploadFragment extends Fragment implements RiwayatUploadAdap
     private EditText etSearchRiwayat;
     private Spinner spinnerFilterStatus;
 
-    private List<Pendaftar> dummyPendaftarList; // Dipertahankan untuk onLihatDetailPendaftarClick
+    private List<Pendaftar> dummyPendaftarList;
     private RequestQueue requestQueue;
-    private String loggedInKampus; // <--- BARU: Untuk menyimpan kampus Staff TU
-    private String loggedInRole; // <--- BARU: Untuk menyimpan role Staff TU (developer bisa lihat semua)
+    private String loggedInKampus;
+    private String loggedInRole;
 
 
     public RiwayatUploadFragment() {
@@ -183,7 +183,7 @@ public class RiwayatUploadFragment extends Fragment implements RiwayatUploadAdap
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
+
             }
         });
     }
@@ -284,7 +284,7 @@ public class RiwayatUploadFragment extends Fragment implements RiwayatUploadAdap
     public void onLihatDetailPendaftarClick(Berkas berkas) {
         if (getContext() == null) return;
         Pendaftar targetPendaftar = null;
-        for (Pendaftar p : dummyPendaftarList) { // Perlu mengambil pendaftar lengkap dari DB jika dummy dihapus
+        for (Pendaftar p : dummyPendaftarList) {
             if (p.getNim().equals(berkas.getNim())) {
                 targetPendaftar = p;
                 break;

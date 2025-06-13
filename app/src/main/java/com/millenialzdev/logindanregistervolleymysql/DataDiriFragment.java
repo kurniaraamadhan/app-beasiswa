@@ -54,10 +54,9 @@ public class DataDiriFragment extends Fragment {
 
     private RequestQueue requestQueue;
     private String loggedInKampus;
-    private String loggedInRole; // Tambahkan ini jika dibutuhkan di DataDiriFragment
+    private String loggedInRole;
 
     public DataDiriFragment() {
-        // Required empty public constructor
     }
 
     public static DataDiriFragment newInstance(Pendaftar pendaftar) {
@@ -311,7 +310,7 @@ public class DataDiriFragment extends Fragment {
                     params.put("nim", nim);
                     params.put("nama_lengkap", namaLengkap);
                     params.put("tanggal_lahir", tanggalLahir);
-                    params.put("jenis_kelamin", jenisKelamin[0]); // Fix error di sini
+                    params.put("jenis_kelamin", jenisKelamin[0]);
                     params.put("nomor_telepon", nomorTelepon);
                     params.put("email", email);
                     params.put("alamat", alamat);

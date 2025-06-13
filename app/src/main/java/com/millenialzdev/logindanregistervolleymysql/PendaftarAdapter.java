@@ -40,13 +40,8 @@ public class PendaftarAdapter extends RecyclerView.Adapter<PendaftarAdapter.Pend
         holder.tvName.setText(pendaftar.getNama());
         holder.tvNIM.setText("NIM: " + pendaftar.getNim());
 
-        // BARU: Tampilkan Prodi dan Angkatan
         holder.tvProdiAngkatan.setText("Prodi: " + pendaftar.getProgramStudi() + " | Angkatan: " + pendaftar.getAngkatan());
-        // BARU: Tampilkan Tanggal Daftar (asumsi ada field tanggalDaftar di Pendaftar.java)
-        // Untuk contoh ini, saya akan tambahkan field dummy "tanggalDaftar" di Pendaftar.java
-        // holder.tvTanggalDaftar.setText("Tanggal Daftar: " + pendaftar.getTanggalDaftar());
 
-        // Jika kamu belum menambahkan tanggalDaftar di Pendaftar.java, bisa hardcode atau pakai tanggal sekarang
         holder.tvTanggalDaftar.setText("Tanggal Daftar: 10 Juni 2025"); // Contoh dummy
 
         holder.tvStatus.setText("Status: " + pendaftar.getStatus());
@@ -82,15 +77,15 @@ public class PendaftarAdapter extends RecyclerView.Adapter<PendaftarAdapter.Pend
     }
 
     public static class PendaftarViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvNIM, tvProdiAngkatan, tvTanggalDaftar, tvStatus; // tvProdiAngkatan, tvTanggalDaftar BARU
+        TextView tvName, tvNIM, tvProdiAngkatan, tvTanggalDaftar, tvStatus;
         Button btnDetail;
 
         public PendaftarViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_pendaftar_name);
             tvNIM = itemView.findViewById(R.id.tv_pendaftar_nim);
-            tvProdiAngkatan = itemView.findViewById(R.id.tv_pendaftar_prodi_angkatan); // Inisialisasi BARU
-            tvTanggalDaftar = itemView.findViewById(R.id.tv_pendaftar_tanggal_daftar); // Inisialisasi BARU
+            tvProdiAngkatan = itemView.findViewById(R.id.tv_pendaftar_prodi_angkatan);
+            tvTanggalDaftar = itemView.findViewById(R.id.tv_pendaftar_tanggal_daftar);
             tvStatus = itemView.findViewById(R.id.tv_pendaftar_status);
             btnDetail = itemView.findViewById(R.id.btn_view_detail);
         }

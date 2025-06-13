@@ -2,9 +2,9 @@ package com.millenialzdev.logindanregistervolleymysql;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.Context; // Import ini
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences; // Import ini
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
@@ -67,8 +67,8 @@ public class BerkasMahasiswaFragment extends Fragment implements SelectedFilesAd
 
     private String selectedMahasiswaNIM;
     private String selectedMahasiswaNama;
-    private String loggedInKampus; // <--- BARU: Untuk menyimpan kampus Staff TU
-    private String loggedInRole; // <--- BARU: Untuk menyimpan role Staff TU (developer bisa lihat semua)
+    private String loggedInKampus;
+    private String loggedInRole;
 
 
     private ActivityResultLauncher<Intent> filePickerLauncher;
@@ -323,7 +323,7 @@ public class BerkasMahasiswaFragment extends Fragment implements SelectedFilesAd
             return;
         }
 
-        if (loggedInKampus.isEmpty()) { // <--- BARU: Validasi kampus
+        if (loggedInKampus.isEmpty()) {
             Toast.makeText(getContext(), "Informasi kampus tidak ditemukan. Mohon login ulang.", Toast.LENGTH_LONG).show();
             return;
         }
@@ -345,7 +345,7 @@ public class BerkasMahasiswaFragment extends Fragment implements SelectedFilesAd
             stringParts.put("nim_mahasiswa", selectedMahasiswaNIM);
             stringParts.put("jenis_berkas", jenisBerkas + " (" + selectedFile.getFileName() + ")");
             stringParts.put("tanggal_upload", new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID")).format(new Date()));
-            stringParts.put("kampus_pengunggah", loggedInKampus); // <--- BARU: Kirim kampus pengunggah
+            stringParts.put("kampus_pengunggah", loggedInKampus);
 
             final int fileIndex = i;
             MultipartRequest multipartRequest = new MultipartRequest(API_URL_UPLOAD_BERKAS,

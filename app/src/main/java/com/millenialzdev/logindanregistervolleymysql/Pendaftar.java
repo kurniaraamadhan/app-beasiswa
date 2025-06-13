@@ -17,7 +17,6 @@ public class Pendaftar implements Parcelable {
     private String ipk;
     private String tanggalDaftar;
 
-    // Konstruktor dengan semua field yang relevan
     public Pendaftar(String nama, String nim, String status, String tanggalLahir, String jenisKelamin,
                      String nomorTelepon, String email, String alamat,
                      String programStudi, String angkatan, String ipk, String tanggalDaftar) {
@@ -35,7 +34,6 @@ public class Pendaftar implements Parcelable {
         this.tanggalDaftar = tanggalDaftar;
     }
 
-    // --- Getter methods ---
     public String getNama() { return nama; }
     public String getNim() { return nim; }
     public String getStatus() { return status; }
@@ -49,8 +47,6 @@ public class Pendaftar implements Parcelable {
     public String getIpk() { return ipk; }
     public String getTanggalDaftar() { return tanggalDaftar; }
 
-
-    // --- Implementasi Parcelable ---
     protected Pendaftar(Parcel in) {
         nama = in.readString();
         nim = in.readString();

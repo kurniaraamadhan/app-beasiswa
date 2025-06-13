@@ -17,9 +17,9 @@ import android.widget.TextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Toast;
-import android.content.Context; // Import ini
-import android.content.SharedPreferences; // Import ini
-import android.net.Uri; // Import ini
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -46,8 +46,8 @@ public class PendaftaranFragment extends Fragment implements PendaftarAdapter.On
     private EditText etSearchPendaftar;
 
     private RequestQueue requestQueue;
-    private String loggedInKampus; // <--- BARU: Untuk menyimpan kampus Staff TU
-    private String loggedInRole; // <--- BARU: Untuk menyimpan role Staff TU (developer bisa lihat semua)
+    private String loggedInKampus;
+    private String loggedInRole;
 
 
     public PendaftaranFragment() {

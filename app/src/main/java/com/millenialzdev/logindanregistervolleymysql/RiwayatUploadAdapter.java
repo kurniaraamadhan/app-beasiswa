@@ -43,7 +43,7 @@ public class RiwayatUploadAdapter extends RecyclerView.Adapter<RiwayatUploadAdap
 
         holder.tvNIM.setText("NIM: " + berkas.getNim());
         holder.tvTanggalUpload.setText(berkas.getTanggalUpload());
-        holder.tvNamaMahasiswa.setText("Nama: " + berkas.getNamaMahasiswa()); // <--- BARU: Set nama mahasiswa
+        holder.tvNamaMahasiswa.setText("Nama: " + berkas.getNamaMahasiswa());
         holder.tvJenisBerkas.setText("Jenis Berkas: " + berkas.getJenisBerkas());
         holder.tvStatus.setText("Status: " + berkas.getStatus());
 
@@ -95,14 +95,14 @@ public class RiwayatUploadAdapter extends RecyclerView.Adapter<RiwayatUploadAdap
     }
 
     public static class RiwayatUploadViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNIM, tvTanggalUpload, tvNamaMahasiswa, tvJenisBerkas, tvStatus, tvAlasanDitolak; // <--- tvNamaMahasiswa BARU
+        TextView tvNIM, tvTanggalUpload, tvNamaMahasiswa, tvJenisBerkas, tvStatus, tvAlasanDitolak;
         Button btnLihatBerkas;
 
         public RiwayatUploadViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNIM = itemView.findViewById(R.id.tv_riwayat_nim);
             tvTanggalUpload = itemView.findViewById(R.id.tv_riwayat_tanggal_upload);
-            tvNamaMahasiswa = itemView.findViewById(R.id.tv_riwayat_nama_mahasiswa); // <--- Inisialisasi BARU
+            tvNamaMahasiswa = itemView.findViewById(R.id.tv_riwayat_nama_mahasiswa);
             tvJenisBerkas = itemView.findViewById(R.id.tv_riwayat_jenis_berkas);
             tvStatus = itemView.findViewById(R.id.tv_riwayat_status);
             tvAlasanDitolak = itemView.findViewById(R.id.tv_riwayat_alasan_ditolak);

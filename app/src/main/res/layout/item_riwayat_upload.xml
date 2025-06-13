@@ -21,62 +21,74 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="4dp">
             <TextView
-                android:id="@+id/tv_pendaftar_name"
+                android:id="@+id/tv_riwayat_nama_mahasiswa"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nama Mahasiswa Lengkap"
+                android:text="Nama: Nama Mahasiswa Lengkap"
                 android:textColor="#333333"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"/>
             <TextView
-                android:id="@+id/tv_pendaftar_nim"
+                android:id="@+id/tv_riwayat_tanggal_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NIM: 1234567890"
-                android:textColor="#666666"
-                android:textSize="14sp"/>
+                android:text="10 Juni 2025"
+                android:textColor="#757575"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_pendaftar_prodi_angkatan"
+            android:id="@+id/tv_riwayat_nim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Prodi: Teknik Informatika | Angkatan: 2023"
+            android:text="NIM: 2023001"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_riwayat_jenis_berkas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jenis Berkas: Transkrip Nilai"
             android:textColor="#666666"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"/>
 
         <TextView
-            android:id="@+id/tv_pendaftar_tanggal_daftar"
+            android:id="@+id/tv_riwayat_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tanggal Daftar: 10 Juni 2025"
-            android:textColor="#757575"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_pendaftar_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status: Menunggu Verifikasi Pemprov"
+            android:text="Status: Pending"
             android:textColor="#FF9800"
             android:textSize="14sp"
-            android:textStyle="italic"/>
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_riwayat_alasan_ditolak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alasan: Dokumen tidak lengkap"
+            android:textColor="#D32F2F"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"/>
 
         <Button
-            android:id="@+id/btn_view_detail"
+            android:id="@+id/btn_lihat_berkas_riwayat"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="Lihat Detail"
-            android:textColor="#009688"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:drawableTint="#009688"
+            android:text="Lihat Berkas"
+            android:textColor="#2196F3"
+            android:drawableEnd="@drawable/ic_visibility"
+            android:drawableTint="#2196F3"
             android:paddingStart="12dp"
-            android:paddingEnd="8dp"/>
+            android:paddingEnd="8dp"
+            android:layout_marginTop="8dp"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

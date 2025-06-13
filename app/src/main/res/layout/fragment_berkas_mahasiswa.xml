@@ -92,7 +92,7 @@
             android:id="@+id/btn_pilih_berkas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PILIH BERKAS "
+            android:text="PILIH FILE BERKAS"
             android:backgroundTint="#F0F0F0"
             android:textColor="#009688"
             android:drawableStart="@drawable/ic_upload"
@@ -103,15 +103,36 @@
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/tv_nama_file"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_selected_files"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="File Terpilih: Belum ada file"
-            android:textColor="#666666"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_selected_file"
+            tools:itemCount="3"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_no_files_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Belum ada file dipilih."
+            android:layout_gravity="center_horizontal"
+            android:textColor="#757575"
             android:textSize="14sp"
-            android:layout_marginBottom="24dp"
-            android:paddingStart="4dp"/>
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_clear_selected_files"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HAPUS SEMUA FILE"
+            android:textColor="#D32F2F"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:layout_marginBottom="24dp"/>
+
 
         <Button
             android:id="@+id/btn_unggah_berkas"
